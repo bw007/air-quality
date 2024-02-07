@@ -1,9 +1,9 @@
 <template>
   <main>
     <el-input
-        v-model="search"
-        placeholder="Type something"
-        @change="handleSearch"
+      v-model="search"
+      placeholder="Type something"
+      @change="handleSearch"
     >
       <template #prefix>
         <el-icon>
@@ -34,6 +34,7 @@
       <el-table-column prop="country" label="Country">
         <template #default="list">
           {{ list.row.city }},
+          {{ list.row.state }},
           {{ list.row.country }}
         </template>
       </el-table-column>
