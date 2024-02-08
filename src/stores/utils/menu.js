@@ -1,6 +1,6 @@
 export const menu = [
   {
-    path: '',
+    path: '/',
     name: 'home',
     title: 'Bosh sahifa',
     icon: 'pie-chart',
@@ -10,12 +10,16 @@ export const menu = [
     path: 'place',
     name: 'place',
     title: 'Shaharlar',
-    icon: 'place'
+    icon: 'place',
+    component: () => import("@/views/HomeView.vue")
+
   },
   {
     path: 'weather',
     name: 'weather',
     title: 'Ob-Havo',
-    icon: 'PartlyCloudy'
+    icon: 'PartlyCloudy',
+    component: () => import("@/views/HomeView.vue")
+
   }
 ]

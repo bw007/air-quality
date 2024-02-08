@@ -3,11 +3,13 @@
     default-active="2"
     class="el-menu-vertical-demo"
     :collapse="isCollapse"
+    :router="true"
     @open="handleOpen"
     @close="handleClose"
+    @select="handleSelect"
   >
 
-    <el-menu-item index="2" @click="isCollapse = !isCollapse">
+    <el-menu-item @click="isCollapse = !isCollapse">
       <el-icon>
         <expand v-if="isCollapse" />
         <close-bold v-else />
@@ -25,14 +27,27 @@
 <script setup>
 import { ref } from 'vue'
 import { menu } from '@/stores/utils/menu'
+import router from '@/router';
 
-const isCollapse = ref(false)
+const isCollapse = ref(true)
+
 const handleOpen = (key, keyPath) => {
-  console.log(key, keyPath)
+  console.log(keyPath);
+  console.log("open");
 }
+
 const handleClose = (key, keyPath) => {
-  console.log(key, keyPath)
+  console.log(keyPath);
+  console.log("close");
 }
+
+const handleSelect = (index, indexPath) => {
+  console.log(index);
+  console.log(indexPath);
+  console.log("select");
+  router.push(index)
+}
+
 </script>
 
 <style>
