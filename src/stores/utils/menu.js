@@ -1,6 +1,6 @@
 export const menu = [
   {
-    path: '/',
+    path: '',
     name: 'home',
     title: 'Bosh sahifa',
     icon: 'pie-chart',
@@ -11,7 +11,7 @@ export const menu = [
     name: 'place',
     title: 'Shaharlar',
     icon: 'place',
-    component: () => import("@/views/HomeView.vue")
+    component: () => import("@/views/PlaceView.vue")
 
   },
   {

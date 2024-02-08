@@ -1,21 +1,19 @@
 <template>
   <el-menu
-    default-active="2"
+    :default-active="$route.name"
     class="el-menu-vertical-demo"
     :collapse="isCollapse"
-    :router="true"
-    @open="handleOpen"
-    @close="handleClose"
     @select="handleSelect"
+    active-text-color="#67C23A"
   >
 
-    <el-menu-item @click="isCollapse = !isCollapse">
-      <el-icon>
+    <el-button style="border: none; padding: 22.5px; opacity: 0.75;" size="large" border="0" @click="isCollapse = !isCollapse">
+      <el-icon :size="18">
         <expand v-if="isCollapse" />
         <close-bold v-else />
       </el-icon>
-    </el-menu-item>
-    <el-menu-item v-for="item in menu" :index="item.path" :key="item.name">
+    </el-button>
+    <el-menu-item v-for="item in menu" :index="item.name" :key="item.name" :route="{name: item.name}">
       <el-icon>
         <component :is="item.icon" />
       </el-icon>
@@ -31,21 +29,8 @@ import router from '@/router';
 
 const isCollapse = ref(true)
 
-const handleOpen = (key, keyPath) => {
-  console.log(keyPath);
-  console.log("open");
-}
-
-const handleClose = (key, keyPath) => {
-  console.log(keyPath);
-  console.log("close");
-}
-
-const handleSelect = (index, indexPath) => {
-  console.log(index);
-  console.log(indexPath);
-  console.log("select");
-  router.push(index)
+const handleSelect = (index) => {
+  router.push({ name: index })
 }
 
 </script>
