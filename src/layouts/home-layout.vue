@@ -1,12 +1,16 @@
 <template>
-  <el-row>
-    <header-part />
-    <router-view />
+  <el-row :gutter="1">
+    <el-col :span="6">
+      <sidebar-part />
+    </el-col>
+    <el-col :span="18">
+      <router-view />
+    </el-col>
   </el-row>
 </template>
 
 <script setup>
-import headerPart from '@/components/header-part.vue' 
+import sidebarPart from '@/components/sidebar-part.vue' 
 </script>
 
 <style lang="">
