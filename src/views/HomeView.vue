@@ -1,6 +1,7 @@
 <template>
-  <main>
+  <el-col>
     <el-input
+
       v-model="search"
       placeholder="Type something"
       @change="handleSearch"
@@ -46,7 +47,7 @@
         </template>
       </el-table-column>
     </el-table>
-  </main>
+  </el-col>
 </template>
 
 <script setup>
