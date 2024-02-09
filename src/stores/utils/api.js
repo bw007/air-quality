@@ -10,22 +10,19 @@ export const apiStore = defineStore("apiStore", () => {
   const loading = ref(false)
 
   // GET stations
-  const getStation = async (payload) => {
-    city.value = {}
-    loading.value = true
-    let res = await axios.get(`${urlData.url}/${payload.url}`, {
+  const get = async (payload) => {
+        console.log(payload);
+
+    return await axios.get(`${urlData.url}/${payload.url}`, {
       params: {
-        token: urlData.token,
+        token: urlData.token,   
         ...payload.params
       }
     }).catch((err) => {
       console.log(err);
     })
 
-    city.value = {...res.data.data}
-    
-    getCityCoordinates({lat: city.value?.city?.geo[0], lon: city.value?.city?.geo[1]})
-    loading.value = false
+    // getCityCoordinates({lat: city.value?.city?.geo[0], lon: city.value?.city?.geo[1]})
   }
 
   // GET all countries
@@ -64,7 +61,7 @@ export const apiStore = defineStore("apiStore", () => {
     cityCoord,
     loading,
 
-    getStation,
+    get,
     getCountries,
     getCityCoordinates
   }

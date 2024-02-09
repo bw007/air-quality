@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1 style="margin-bottom: 20px;">Shaharlar</h1>
+    <h1 style="margin-bottom: 20px;">Shaharni qidirish</h1>
     <el-input v-model="search" @change="handleSearch(search)" clearable placeholder="Country" />
     <el-table :data="tableData" border style="width: 100%; margin-top: 40px;">
       <el-table-column prop="date" label="Date" width="180" />
@@ -11,7 +11,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { placeStore } from '@/stores/data/place';
+import { onMounted, ref } from 'vue';
+
+const store = placeStore()
 
 let search = ref('')
 
@@ -26,6 +29,10 @@ const tableData = ref([
     address: "Washington, USA"
   }
 ])
+
+onMounted(() => {
+  store.getPlace({url: ""})
+})
 
 </script>
 
