@@ -12,19 +12,20 @@
       style="width: 100%; margin-top: 20px"
       v-loading="loading"
       element-loading-text="Aniqlanmoqda..."
+      border
       :empty-text="stations.length > 0 ? '' : `Ma'lumot topilmadi. Ingliz tilida qidirish ustunlik beradi`"
     >
-      <el-table-column type="index" width="40" />
+      <el-table-column align="center" type="index" label="№" width="45" />
       <el-table-column align="center" header-align="center" label="Mamlakat" width="90">
         <template #default="list">
           <el-image
-            style="display: flex; align-items: center; width: 34px; height: 23px;"
+            style="display: flex; align-items: center; justify-content: center; width: 34px; height: 23px;"
             :src="list.row.station.country 
               ? `https://flagcdn.com/h24/${list.row.station.country?.toLowerCase()}.webp`
               : `https://cdn.airvisual.net/flags/${list.row.country?.split(' ').join('-')}.jpg`"
           >
             <template #error>
-              <el-icon style="margin-left: 5px;" :size="18">
+              <el-icon :size="18">
                 <Picture />
               </el-icon>
             </template>
@@ -32,22 +33,22 @@
         </template>
       </el-table-column>
       <el-table-column prop="station.name" label="Stansiya nomi" />
-      <el-table-column prop="iaqi.so2.v" width="100">
+      <el-table-column align="center" prop="iaqi.so2.v" width="90">
         <template #header>
           SO<sub>2</sub>
         </template>
       </el-table-column>
-      <el-table-column prop="iaqi.o3.v" width="100">
+      <el-table-column align="center" prop="iaqi.o3.v" width="90">
         <template #header>
           O<sub>3</sub>
         </template>
       </el-table-column>
-      <el-table-column prop="iaqi.pm10.v" width="100">
+      <el-table-column align="center" prop="iaqi.pm10.v" width="90">
         <template #header>
           PM<sub>10</sub>
         </template>
       </el-table-column>
-      <el-table-column prop="aqi" width="140">
+      <el-table-column align="center" prop="aqi" width="125">
         <template #header>
           Indeks (PM<sub>2.5</sub>)
         </template>
@@ -100,5 +101,6 @@ onMounted(() => {
 .el-table_1_column_2.is-center .cell {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 </style>

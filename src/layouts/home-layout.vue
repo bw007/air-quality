@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container style="height: 100vh;">
     <el-aside width="auto">
       <sidebar-part />
     </el-aside>

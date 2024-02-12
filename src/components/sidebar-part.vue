@@ -6,7 +6,6 @@
     @select="handleSelect"
     active-text-color="#67C23A"
   >
-
     <el-button style="border: none; padding: 22.5px; opacity: 0.75;" size="large" border="0" @click="isCollapse = !isCollapse">
       <el-icon :size="18">
         <expand v-if="isCollapse" />
@@ -38,6 +37,9 @@ const handleSelect = (index) => {
 <style>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 180px;
-  min-height: 400px;
+  min-height: 100%;
+}
+.el-aside .el-menu {
+  height: 100%;
 }
 </style>
