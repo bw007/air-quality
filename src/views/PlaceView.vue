@@ -59,8 +59,10 @@
             :width="250"
             trigger="hover"
             :content="aqDegree(list.row.aqi).desc"
-            :popper-style="{ backgroundColor: aqDegree(list.row.aqi).clr, 
-                            color: aqDegree(list.row.aqi).clr == '' ? '#000' : '#fff' }"
+            :popper-style="{ 
+              backgroundColor: aqDegree(list.row.aqi).clr, 
+              color: aqDegree(list.row.aqi).clr == '' ? '#000' : '#fff' 
+            }"
           >
             <template #reference>
               <el-button :color="aqDegree(list.row.aqi).clr" style="width: 55px;">{{ list.row.aqi }}</el-button>

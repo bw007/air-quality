@@ -4,7 +4,7 @@ import { apiStore } from "../utils/api";
 import { urlData } from "../utils/env";
 
 export const placeStore = defineStore("placeStore", () => {
-  const store = apiStore();
+  const api = apiStore();
 
   const flags = ref({});
   const stations = ref([]);
@@ -13,7 +13,7 @@ export const placeStore = defineStore("placeStore", () => {
   const getStation = async (payload) => {
     loading.value = true;
 
-    let res = await store.get({
+    let res = await api.get({
       url: `${urlData.waqiUrl}/${payload.route}/`,
       params: { token: urlData.waqiToken, keyword: payload.keyword },
     });
@@ -22,12 +22,12 @@ export const placeStore = defineStore("placeStore", () => {
       stations.value = [
         ...await Promise.all(res.data.data.map(async (item) => {
           
-          let translate = await store.get({
+          let translate = await api.get({
             url: urlData.translateUrl, 
             params: { key: urlData.apiKey, PROJECT_NUMBER_OR_ID: "ethereal-beach-413910", q: item.station.name, target: "uz" } 
           })
 
-          let frc = await store.get({ 
+          let frc = await api.get({ 
             url: `${urlData.waqiUrl}/feed/geo:${item.station.geo.join(";")}/`, 
             params: { token: urlData.waqiToken }
           })
@@ -61,7 +61,7 @@ export const placeStore = defineStore("placeStore", () => {
   };
   
   const getCntryData = (geo) => {
-    return store.get({ url: urlData.mapsUrl, params: { latlng: geo, key: urlData.apiKey } })
+    return api.get({ url: urlData.mapsUrl, params: { latlng: geo, key: urlData.apiKey } })
   }
 
   return {
