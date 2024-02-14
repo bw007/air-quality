@@ -32,7 +32,7 @@
           </el-image>
         </template>
       </el-table-column>
-      <el-table-column prop="station.name" label="Stansiya nomi" />
+      <el-table-column prop="station.name" label="Stansiya nomi" min-width="250" />
       <el-table-column align="center" prop="iaqi.so2.v" width="90">
         <template #header>
           SO<sub>2</sub>

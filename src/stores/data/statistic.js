@@ -5,6 +5,7 @@ import { urlData } from "../utils/env";
 
 export const statisticStore = defineStore("statisticStore", () => {
   const api = apiStore()
+  const loading = ref(false)
   const forecast = ref({})
 
   const getForct = async (payload) => {
@@ -14,13 +15,15 @@ export const statisticStore = defineStore("statisticStore", () => {
     });
 
     if (res.status == 200) {
-      console.log(res.data.data.forecast.daily);
-      forecast.value = {...res.data.data.forecast.daily}
+      forecast.value = [...res.data.data.forecast.daily.pm25]
+      loading.value = true
+      console.log(forecast.value);
     }
   }
 
   return {
     forecast,
+    loading,
 
     getForct
   }
