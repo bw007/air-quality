@@ -1,6 +1,14 @@
 <template>
   <section>
-    <Bar :data="data" :options="options" />
+    <el-skeleton v-if="!loading" :rows="5" animated />
+    <Bar 
+      v-if="loading"
+      :data="{ 
+        labels: [...forecast?.map(item => convertDate(item.day))], 
+        datasets: [ { data: [...forecast?.map(item => item.avg)] } ]
+      }" 
+      :options="options" />
+    <el-button type="success">Test</el-button>
   </section>
 </template>
 
@@ -10,26 +18,21 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 import { onMounted, ref } from "vue";
 import { statisticStore } from "@/stores/data/statistic";
 import { storeToRefs } from "pinia";
+import { convertDate } from "@/stores/utils/func";
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 const store = statisticStore()
-const { forecast } = storeToRefs(store)
-
-const data = ref({
-  labels: [ '...forecast.value.pm25' ],
-  datasets: [ { data: [forecast.value.pm25?.min] } ]
-})
+const { forecast, loading } = storeToRefs(store)
 
 const options = ref({
   responsive: true,
 })
 
-console.log(forecast.value.pm25);
-console.log();
-
 onMounted(() => {
-  store.getForct({ route: "feed/tashkent" });
+  if (!forecast.value.length) {
+    store.getForct({ route: "feed/tashkent" });
+  }
 })
 
 </script>
