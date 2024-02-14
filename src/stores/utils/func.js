@@ -51,3 +51,29 @@ export const aqDegree = (aqi) => {
               Har bir inson ochiq havoda harakat qilishdan qochishi kerak`
     }
 };
+
+const mn = [
+  'yanvar',
+  'fevral',
+  'mart',
+  'aprel',
+  'may',
+  'iyun',
+  'iyul',
+  'avgust',
+  'sentabr',
+  'oktabr',
+  'noyabr',
+  'dekabr'
+]
+
+const addZero = v => v < 10 ? "0" + v : v
+
+export const convertDate = (d, type = 'date') => {
+  let date = new Date(d);
+
+  return type == 'date' ? `
+    ${addZero(date.getDate())}-${mn[date.getMonth()]}` 
+    : type == 'full' ? `${addZero(date.getDate())}/${addZero(date.getMonth() + 1)}/${date.getFullYear()}`
+    : ''
+}
