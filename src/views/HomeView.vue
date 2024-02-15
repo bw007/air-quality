@@ -1,11 +1,15 @@
 <template>
   <section>
     <el-skeleton v-if="!loading" :rows="5" animated />
-    <Bar 
+    <Line 
       v-if="loading"
       :data="{ 
         labels: [...forecast?.map(item => convertDate(item.day))], 
-        datasets: [ { data: [...forecast?.map(item => item.avg)] } ]
+        datasets: [ { 
+          label: 'Tashkent',
+          backgroundColor: '#f87979',
+          data: [...forecast?.map(item => item.avg)] 
+        } ],
       }" 
       :options="options" />
     <el-button type="success">Test</el-button>
@@ -13,14 +17,25 @@
 </template>
 
 <script setup>
-import { Bar } from "vue-chartjs";
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { Line } from "vue-chartjs";
+
+import { 
+  Chart as ChartJS, 
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js'
+
 import { onMounted, ref } from "vue";
 import { statisticStore } from "@/stores/data/statistic";
 import { storeToRefs } from "pinia";
 import { convertDate } from "@/stores/utils/func";
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 const store = statisticStore()
 const { forecast, loading } = storeToRefs(store)
