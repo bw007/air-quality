@@ -5,7 +5,7 @@ import { urlData } from "../utils/env";
 
 export const placeStore = defineStore("placeStore", () => {
   const api = apiStore();
-  const forecast = ref({})
+  const forecast = ref([])
 
   const flags = ref({});
   const stations = ref([]);
