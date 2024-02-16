@@ -5,6 +5,7 @@ import { urlData } from "../utils/env";
 
 export const placeStore = defineStore("placeStore", () => {
   const api = apiStore();
+  const forecast = ref({})
 
   const flags = ref({});
   const stations = ref([]);
@@ -19,6 +20,7 @@ export const placeStore = defineStore("placeStore", () => {
     });
 
     if (res?.status == 200) {
+      forecast.value = []
       stations.value = [
         ...await Promise.all(res.data.data.map(async (item) => {
           
@@ -32,8 +34,6 @@ export const placeStore = defineStore("placeStore", () => {
             params: { token: urlData.waqiToken }
           })
 
-          
-
           if (!item.station.country) {
             let cn = await getCntryData(item.station.geo.join())
             return {
@@ -45,7 +45,6 @@ export const placeStore = defineStore("placeStore", () => {
             }
           }
           
-          
           return {
             ...item,
             forecast: { ...frc.data?.data.forecast },
@@ -56,7 +55,14 @@ export const placeStore = defineStore("placeStore", () => {
         })),
       ];
     }
-    console.log(stations.value);
+    forecast.value = [...stations.value.map(item => {
+      return {
+        forecast: { ...item.forecast },
+        name: item.station.name
+      }
+    })]
+
+    console.log(forecast.value);
     loading.value = false;
   };
   
@@ -68,6 +74,7 @@ export const placeStore = defineStore("placeStore", () => {
     flags,
     stations,
     loading,
+    forecast,
 
     getStation,
   };

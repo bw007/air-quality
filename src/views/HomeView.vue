@@ -1,14 +1,15 @@
 <template>
-  <section>
-    <el-skeleton v-if="!loading" :rows="5" animated />
+    <el-skeleton v-if="loading" :rows="5" animated />
+  <section v-else style="width: 800px;" v-for="fr in forecast" :key="fr">
+    4545
     <Line 
-      v-if="loading"
+      v-if="!loading"
       :data="{ 
-        labels: [...forecast?.map(item => convertDate(item.day))], 
+        labels: [...forecast?.data.map(item => convertDate(item.day))], 
         datasets: [ { 
-          label: 'Tashkent',
+          label: forecast.name,
           backgroundColor: '#f87979',
-          data: [...forecast?.map(item => item.avg)] 
+          data: [...forecast?.data.map(item => item.avg)] 
         } ],
       }" 
       :options="options" />
@@ -31,23 +32,31 @@ import {
 } from 'chart.js'
 
 import { onMounted, ref } from "vue";
-import { statisticStore } from "@/stores/data/statistic";
 import { storeToRefs } from "pinia";
 import { convertDate } from "@/stores/utils/func";
+import { placeStore } from "@/stores/data/place";
+const store = placeStore()
+
+const { loading, stations, forecast } = storeToRefs(placeStore)
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
-
-const store = statisticStore()
-const { forecast, loading } = storeToRefs(store)
 
 const options = ref({
   responsive: true,
 })
 
+// let search = ref("");
+
+// const handleSearch = async (val) => {
+//   if (!val) return
+//   store.getStation({route: "search", keyword: val.trim()});
+// };
+
 onMounted(() => {
-  if (!forecast.value.length) {
-    store.getForct({ route: "feed/tashkent" });
+  if (!stations?.value.length) {
+    store.getStation({route: "search", keyword: "Tashkent"});
   }
+  console.log(forecast);
 })
 
 </script>
