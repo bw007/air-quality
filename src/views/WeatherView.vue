@@ -11,20 +11,21 @@
 </template>
 
 <script setup>
-import { placeStore } from "@/stores/data/place";
+import { weatherStore } from "@/stores/data/weatherStore";
+
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
 // import { convertDate } from "@/stores/utils/func";
 
-const store = placeStore();
+const store = weatherStore();
 
-const { loading, stations } = storeToRefs(store)
+const { city } = storeToRefs(store);
 
 let search = ref("");
 
 const handleSearch = async (val) => {
   if (!val) return
-  store.getStation({route: "search", keyword: val.trim()});
+  store.getWeather({route: "search", keyword: val.trim()});
 };
 
   onMounted(() => {
