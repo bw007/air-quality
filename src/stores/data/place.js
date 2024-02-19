@@ -9,6 +9,7 @@ export const placeStore = defineStore("placeStore", () => {
 
   const flags = ref({});
   const stations = ref([]);
+  const stations_count = ref(0)
   const loading = ref(false);
 
   const getStation = async (payload) => {
@@ -55,6 +56,7 @@ export const placeStore = defineStore("placeStore", () => {
         })),
       ];
     }
+    stations_count.value = stations.value.length
     forecast.value = [...stations.value.map(item => {
       return {
         forecast: { ...item.forecast },
@@ -73,6 +75,7 @@ export const placeStore = defineStore("placeStore", () => {
   return {
     flags,
     stations,
+    stations_count,
     loading,
     forecast,
 
