@@ -1,15 +1,17 @@
 <template>
   <section>
-    <h1 style="margin-bottom: 20px">Stansiyalarni qidirish</h1>
+    <h1 style="margin-bottom: 15px">Stansiyalarni qidirish</h1>
     <el-input
       v-model="search"
       @change="handleSearch(search)"
       clearable
       placeholder="Misol: Jakarta"
     />
+    <p v-show="!loading" style="margin-top: 15px;">Topilgan stansiyalar: {{ stations_count }}</p>
     <el-table
+      height="75vh"
       :data="stations"
-      style="width: 100%; margin-top: 20px"
+      style="width: 100%; margin-top: 10px"
       v-loading="loading"
       element-loading-text="Aniqlanmoqda..."
       border
@@ -33,6 +35,11 @@
         </template>
       </el-table-column>
       <el-table-column prop="station.name" label="Stansiya nomi" min-width="250" />
+      <el-table-column prop="time.stime" label="Sana" width="120">
+        <template #default="list">
+          {{ convertDate(list.row.time.stime) }}
+        </template>
+      </el-table-column>
       <el-table-column align="center" prop="iaqi.so2.v" width="90">
         <template #header>
           SO<sub>2</sub>
@@ -48,7 +55,7 @@
           PM<sub>10</sub>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="aqi" width="125">
+      <el-table-column align="center" prop="aqi" width="150">
         <template #header>
           Indeks (PM<sub>2.5</sub>)
         </template>
@@ -78,11 +85,11 @@
 import { placeStore } from "@/stores/data/place";
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
-import { aqDegree } from "@/stores/utils/func";
+import { aqDegree, convertDate } from "@/stores/utils/func";
 
 const store = placeStore();
 
-const { loading, stations } = storeToRefs(store)
+const { loading, stations, stations_count } = storeToRefs(store)
 
 let search = ref("");
 
