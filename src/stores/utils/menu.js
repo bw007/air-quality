@@ -19,7 +19,7 @@ export const menu = [
     name: 'weather',
     title: 'Ob-Havo',
     icon: 'PartlyCloudy',
-    component: () => import("@/views/HomeView.vue")
+    component: () => import("@/views/WeatherView.vue")
 
   }
 ]
