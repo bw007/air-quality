@@ -9,9 +9,9 @@
       style="margin-bottom: 20px;"
     />
     
-    <el-skeleton animated>
+    <el-skeleton v-if="load" animated>
       <template #template>
-        <el-skeleton-item variant="circle" style="width: 70px; height: 70px;" />
+        <el-skeleton-item variant="circle" style="width: 50px; height: 50px;" />
         <div style="padding: 5px; width: 300px;">
           <el-skeleton-item variant="h1" style="width: 200px" />
           <div style="margin-top: 10px;">
@@ -21,28 +21,51 @@
         </div>
       </template>
     </el-skeleton>
-
-
+    <div style="display: flex; align-items: center; gap: 5px;" v-else>
+      <el-image :src="city.current?.condition.icon" fit="cover" />
+      <el-text style="font-size: 40px;">
+        {{ degree == 1 ? city.current?.temp_c : city.current?.temp_f }}
+      </el-text>
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <el-popover
+          placement="top-start"
+          trigger="hover"
+          content="Selsiy"
+        >
+          <template #reference>
+            <el-text size="large" :type="degree == 1 ? 'primary' : 'info'" style="cursor: pointer;" @click="degree = 1">&#x2103;</el-text>
+          </template>
+        </el-popover>
+        <el-divider direction="vertical" />
+        <el-popover
+          placement="top-start"
+          trigger="hover"
+          content="Farengeyt"
+        >
+          <template #reference>
+            <el-text size="large" :type="degree == 2 ? 'primary' : 'info'" style="cursor: pointer;" @click="degree = 2">&#8457;</el-text>
+          </template>
+        </el-popover>
+      </div>
+    </div>
   </section>
 </template>
 
 <script setup>
-
-
 import { weatherStore } from "@/stores/data/weather";
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
 // import { convertDate } from "@/stores/utils/func";
 import { placeStore } from "@/stores/data/place";
 
-
 const place = placeStore()
 const store = weatherStore()
 
-const { loading, stations } = storeToRefs(place)
-const { city } = storeToRefs(store);
+const { stations } = storeToRefs(place)
+const { city, load } = storeToRefs(store);
 
 let search = ref("");
+const degree = ref(1)
 
 const handleSearch = async (val) => {
   if (!val) return

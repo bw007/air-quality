@@ -6,8 +6,10 @@ import { urlData } from "../utils/env";
 export const weatherStore = defineStore("weatherStore", () => {
   const api = apiStore()
   const city = ref({})
+  const load = ref(false)
 
   const getWeather = async (payload) => {
+    load.value = true;
     let res = await api.get({ 
       url: urlData.weatherUrl,
       headers: {
@@ -18,13 +20,15 @@ export const weatherStore = defineStore("weatherStore", () => {
     })
 
     if (res?.status == 200) {
-      city.value = { ...res.data }
+      city.value = { ...res.data, location: { ...await res.data.location.country } }
     }
-    console.log(city.value);
+    load.value = false;
+    console.log(city.value.location);
   }
 
   return {
     city,
+    load,
 
     getWeather
   }
