@@ -1,10 +1,13 @@
-import { defineStore } from "pinia";
+import { defineStore, storeToRefs } from "pinia";
 import { ref } from "vue";
 import { apiStore } from "../utils/api";
 import { urlData } from "../utils/env";
+import { translateStore } from "./translate";
 
 export const placeStore = defineStore("placeStore", () => {
   const api = apiStore();
+  const tr = translateStore()
+  const { text } = storeToRefs(tr)
   const forecast = ref([])
 
   const flags = ref({});
@@ -24,17 +27,13 @@ export const placeStore = defineStore("placeStore", () => {
       forecast.value = []
       stations.value = [
         ...await Promise.all(res.data.data.map(async (item) => {
-          
-          let translate = await api.get({
-            url: urlData.translateUrl, 
-            params: { key: urlData.apiKey, PROJECT_NUMBER_OR_ID: "ethereal-beach-413910", q: item.station.name, target: "uz" } 
-          })
 
           let frc = await api.get({ 
             url: `${urlData.waqiUrl}/feed/geo:${item.station.geo.join(";")}/`, 
             params: { token: urlData.waqiToken }
           })
 
+          await tr.getTranslate(item.station.name)
           if (!item.station.country) {
             let cn = await getCntryData(item.station.geo.join())
             return {
@@ -42,15 +41,15 @@ export const placeStore = defineStore("placeStore", () => {
               forecast: { ...frc.data?.data.forecast },
               iaqi: { ...frc.data?.data.iaqi },
               country: cn.data?.plus_code?.compound_code?.split(", ").pop().toLowerCase(),
-              station: {...item.station, name: translate.data.data.translations[0].translatedText}
+              station: {...item.station, name: text.value[0].translatedText}
             }
           }
-          
+          console.log(text.value);
           return {
             ...item,
             forecast: { ...frc.data?.data.forecast },
             iaqi: { ...frc.data?.data.iaqi },
-            station: { ...item.station, name: translate.data.data.translations[0].translatedText }
+            station: { ...item.station, name: text.value[0].translatedText }
           };
 
         })),
@@ -64,7 +63,7 @@ export const placeStore = defineStore("placeStore", () => {
       }
     })]
 
-    console.log(forecast.value);
+    console.log(stations.value[0].station.geo.join());
     loading.value = false;
   };
   
