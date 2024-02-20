@@ -5,6 +5,6 @@ export const urlData = {
   mapsUrl: "https://maps.googleapis.com/maps/api/geocode/json",
   flagUrl: "https://cdn.airvisual.net/flags/india.jpg",
   translateUrl: "https://translation.googleapis.com/language/translate/v2",
-  weatherAPI: "283c9db0051bb9a58fe6e640a6b22740",
-  weatherUrl: "https://api.openweathermap.org/data/2.5/weather"
+  weatherKey: "fedaa47da3msh44dab0c4e278f4ep1dcb31jsn51bde7d2cab0",
+  weatherUrl: "https://weatherapi-com.p.rapidapi.com/current.json"
 }
