@@ -6,9 +6,8 @@ export const apiStore = defineStore("apiStore", () => {
   // GET request
   const get = async (payload) => {
     return await axios.get(`${payload.url}`, {
-      params: {
-        ...payload.params
-      }
+      headers: { ...payload.headers },
+      params: { ...payload.params }
     }).catch((err) => {
       console.log("Xatolik", err);
     })
