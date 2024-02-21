@@ -1,4 +1,4 @@
-import { defineStore, storeToRefs } from "pinia";
+import { defineStore } from "pinia";
 import { ref } from "vue";
 import { apiStore } from "../utils/api";
 import { urlData } from "../utils/env";
@@ -7,7 +7,6 @@ import { translateStore } from "./translate";
 export const placeStore = defineStore("placeStore", () => {
   const api = apiStore();
   const tr = translateStore()
-  const { text } = storeToRefs(tr)
   const forecast = ref([])
 
   const flags = ref({});
@@ -33,7 +32,6 @@ export const placeStore = defineStore("placeStore", () => {
             params: { token: urlData.waqiToken }
           })
 
-          await tr.getTranslate(item.station.name)
           if (!item.station.country) {
             let cn = await getCntryData(item.station.geo.join())
             return {
@@ -41,15 +39,15 @@ export const placeStore = defineStore("placeStore", () => {
               forecast: { ...frc.data?.data.forecast },
               iaqi: { ...frc.data?.data.iaqi },
               country: cn.data?.plus_code?.compound_code?.split(", ").pop().toLowerCase(),
-              station: {...item.station, name: text.value[0].translatedText}
+              station: {...item.station, name: await tr.getTranslate(item.station.name) }
             }
           }
-          console.log(text.value);
+          
           return {
             ...item,
             forecast: { ...frc.data?.data.forecast },
             iaqi: { ...frc.data?.data.iaqi },
-            station: { ...item.station, name: text.value[0].translatedText }
+            station: { ...item.station, name: await tr.getTranslate(item.station.name) }
           };
 
         })),

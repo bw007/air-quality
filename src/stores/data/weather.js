@@ -2,9 +2,11 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { apiStore } from "../utils/api";
 import { urlData } from "../utils/env";
+import { translateStore } from "./translate";
 
 export const weatherStore = defineStore("weatherStore", () => {
   const api = apiStore()
+  const tr = translateStore()
   const city = ref({})
   const load = ref(false)
 
@@ -20,10 +22,10 @@ export const weatherStore = defineStore("weatherStore", () => {
     })
 
     if (res?.status == 200) {
-      city.value = { ...res.data, location: { ...await res.data.location.country } }
+      city.value = { ...res.data, location: { ...res.data.location, country: await tr.getTranslate(res.data.location.country + " ") } }
     }
     load.value = false;
-    console.log(city.value.location);
+    console.log(city.value.current);
   }
 
   return {

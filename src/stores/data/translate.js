@@ -1,32 +1,27 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
 import { apiStore } from "../utils/api";
 import { urlData } from "../utils/env";
 
 export const translateStore = defineStore("translateStore", () => {
   const api = apiStore()
-  const text = ref([])
 
-  const getTranslate = async (payload) => {
+  const getTranslate = async (word) => {
     let res = await api.get({
       url: urlData.translateUrl, 
       params: { 
         key: urlData.apiKey, 
         PROJECT_NUMBER_OR_ID: "ethereal-beach-413910", 
-        q: payload, 
+        q: word, 
         target: "uz" 
       } 
     })
 
     if (res.status == 200) {
-      text.value = [ ...res.data.data.translations ]
-      console.log(text.value);
+      return res.data.data.translations[0].translatedText
     }
   }
 
   return {
-    text,
-
     getTranslate
   }
 })
