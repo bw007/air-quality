@@ -45,9 +45,10 @@
             </template>
           </el-popover>
         </div>
-        <div>
-          <span>Namlik: {{ city.current?.humidity }}</span>
-        </div>
+        <el-row>
+          <el-text>Namlik: {{ city.current?.humidity }}%</el-text>
+          <el-text>Shamol: {{ city.current?.wind_kph }} km/s</el-text>
+        </el-row>
       </div>
       
     </div>
