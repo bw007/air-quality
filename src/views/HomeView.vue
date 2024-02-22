@@ -1,16 +1,18 @@
 <template>
   <section style="height: 100vh;">
-    <h1 style="margin-bottom: 15px;">Havo sifati bashorati</h1>
+    <h1 style="margin-bottom: 20px">Havo sifati bashorati</h1>
+    <el-text>Stansiyani qidirish</el-text>
     <el-input
       v-model="search"
       @change="handleSearch(search)"
       clearable
       placeholder="Misol: Jakarta"
+      style="margin: 5px 0;"
     />
-    <p v-show="!loading" style="margin-top: 15px;">Topilgan stansiyalar: {{ stations_count }}</p>
+    <p v-show="!loading" style="margin-top: 12px;">Natijalar: {{ stations_count }}</p>
     <el-skeleton v-if="loading" :rows="5" style="margin-top: 20px;" animated />
     <div v-else style="display: flex; flex-wrap: wrap; width: 100%;">
-      <div v-for="fr in forecast" :key="fr" style="width: 620px; margin-top: 20px;">
+      <div v-for="fr in forecast" :key="fr" style="width: 620px; margin-top: 15px;">
         <Line
           :data="{ 
             labels: [ ...fr.forecast.daily.pm25.map(item => convertDate(item.day)) ], 

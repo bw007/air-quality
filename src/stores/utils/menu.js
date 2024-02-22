@@ -21,5 +21,11 @@ export const menu = [
     icon: 'PartlyCloudy',
     component: () => import("@/views/WeatherView.vue")
 
+  },
+  {
+    path: 'setting',
+    name: 'setting',
+    title: 'Sozlamalar',
+    icon: 'Setting',
   }
 ]

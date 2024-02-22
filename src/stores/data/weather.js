@@ -29,12 +29,12 @@ export const weatherStore = defineStore("weatherStore", () => {
         }, 
         location: { 
           ...res.data.location, 
-          country: await tr.getTranslate(res.data.location.country), name: await tr.getTranslate(res.data.location.name) 
+          country_uz: await tr.getTranslate(res.data.location.country), name_uz: await tr.getTranslate(res.data.location.name) 
         } 
       }
     }
     load.value = false;
-    console.log(city.value.current);
+    console.log(city.value.location);
   }
 
   return {

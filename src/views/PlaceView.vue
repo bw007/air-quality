@@ -1,17 +1,19 @@
 <template>
   <section>
-    <h1 style="margin-bottom: 15px">Stansiyalarni qidirish</h1>
+    <h1 style="margin-bottom: 20px">Havo sifati ko'rsatkichlari</h1>
+    <el-text>Stansiyani qidirish</el-text>
     <el-input
       v-model="search"
       @change="handleSearch(search)"
       clearable
       placeholder="Misol: Jakarta"
+      style="margin: 5px 0;"
     />
-    <p v-show="!loading" style="margin-top: 15px;">Topilgan stansiyalar: {{ stations_count }}</p>
+    <p v-show="!loading" style="margin: 12px 0;">Natijalar: {{ stations_count }}</p>
     <el-table
       height="75vh"
       :data="stations"
-      style="width: 100%; margin-top: 10px"
+      style="width: 100%;"
       v-loading="loading"
       element-loading-text="Aniqlanmoqda..."
       border

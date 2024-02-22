@@ -1,12 +1,13 @@
 <template>
   <section>
-    <h1 style="margin-bottom: 15px">Manzilni qidirish</h1>
+    <h1 style="margin-bottom: 20px">Ob-havo ma'lumotlari</h1>
+    <el-text>Manzilni qidirish</el-text>
     <el-input
       v-model="search"
       @change="handleSearch(search)"
       clearable
       placeholder="Misol: Jakarta"
-      style="margin-bottom: 20px;"
+      style="margin-bottom: 20px; margin-top: 5px;"
     />
     
     <el-skeleton v-if="load" animated>
@@ -23,8 +24,12 @@
     </el-skeleton>
     <div v-else>
       <div>
-        <span v-html="city.location?.name"></span>,
-        <span v-html="city.location?.country"></span>
+        <el-button type="warning" plain @click="store.getWeather(city.location?.name)">
+          <span v-html="city.location?.name"></span>
+        </el-button>
+        <el-button type="warning" plain @click="store.getWeather(city.location?.country)">
+          <span v-html="city.location?.country_uz"></span>
+        </el-button>
       </div>
       <div style="display: flex; align-items: center; gap: 5px; margin-top: 10px; max-width: 600px;">
         <el-image :src="city.current?.condition.icon" fit="cover" />
@@ -44,10 +49,10 @@
             </template>
           </el-popover>
         </div>
-        <div style="display: flex; flex-direction: column; margin-top: 8px;">
+        <div style="display: flex; flex-direction: column; margin-top: 8px; margin-left: 10px;">
           <el-text size="small" style="align-self: auto;">Namlik: {{ city.current?.humidity }}%</el-text>
           <el-text size="small" style="align-self: auto;">Shamol: {{ city.current?.wind_kph }} km/s</el-text>
-          <el-text size="small" style="align-self: auto;">Bulut: {{ city.current?.cloud }}%</el-text>
+          <el-text size="small" style="align-self: auto;">UV indeks: {{ city.current?.uv }}</el-text>
         </div>
         <div style="display: flex; flex-direction: column; align-items: flex-end; margin-left: auto;">
           <el-text size="large" style="align-self: auto;" >
