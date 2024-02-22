@@ -23,11 +23,10 @@
     </el-skeleton>
     <div v-else>
       <div>
-        {{ city.location?.name }},
-        {{ city.location?.country }},
-        {{ convertDate(city.location?.localtime) }}
+        <span v-html="city.location?.name"></span>,
+        <span v-html="city.location?.country"></span>
       </div>
-      <div style="display: flex; align-items: center; gap: 5px; margin-top: 10px;">
+      <div style="display: flex; align-items: center; gap: 5px; margin-top: 10px; max-width: 600px;">
         <el-image :src="city.current?.condition.icon" fit="cover" />
         <el-text style="font-size: 40px;">
           {{ degree == 1 ? city.current?.temp_c.toFixed() : city.current?.temp_f.toFixed() }}
@@ -45,10 +44,19 @@
             </template>
           </el-popover>
         </div>
-        <el-row>
-          <el-text>Namlik: {{ city.current?.humidity }}%</el-text>
-          <el-text>Shamol: {{ city.current?.wind_kph }} km/s</el-text>
-        </el-row>
+        <div style="display: flex; flex-direction: column; margin-top: 8px;">
+          <el-text size="small" style="align-self: auto;">Namlik: {{ city.current?.humidity }}%</el-text>
+          <el-text size="small" style="align-self: auto;">Shamol: {{ city.current?.wind_kph }} km/s</el-text>
+          <el-text size="small" style="align-self: auto;">Bulut: {{ city.current?.cloud }}%</el-text>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-end; margin-left: auto;">
+          <el-text size="large" style="align-self: auto;" >
+            {{ convertDate(city.location?.localtime) }}
+          </el-text>
+          <el-text size="large" style="align-self: auto;" type="primary">
+            <span v-html="city.current?.condition?.text"></span>
+          </el-text>
+        </div>
       </div>
       
     </div>

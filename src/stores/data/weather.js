@@ -22,7 +22,16 @@ export const weatherStore = defineStore("weatherStore", () => {
     })
 
     if (res?.status == 200) {
-      city.value = { ...res.data, location: { ...res.data.location, country: await tr.getTranslate(res.data.location.country + " ") } }
+      city.value = { 
+        current: { 
+          ...res.data.current, 
+          condition: { ...res.data.current.condition, text: await tr.getTranslate(res.data.current.condition.text) } 
+        }, 
+        location: { 
+          ...res.data.location, 
+          country: await tr.getTranslate(res.data.location.country), name: await tr.getTranslate(res.data.location.name) 
+        } 
+      }
     }
     load.value = false;
     console.log(city.value.current);

@@ -17,7 +17,7 @@ export const translateStore = defineStore("translateStore", () => {
     })
 
     if (res.status == 200) {
-      return res.data.data.translations[0].translatedText
+     return res.data.data.translations[0].translatedText
     }
   }
 
