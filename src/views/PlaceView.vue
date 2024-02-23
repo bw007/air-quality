@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1 style="margin-bottom: 20px">Havo sifati ko'rsatkichlari</h1>
+    <h1 style="margin-bottom: 20px">{{ $route.meta.text }}</h1>
     <el-text>Stansiyani qidirish</el-text>
     <el-input
       v-model="search"

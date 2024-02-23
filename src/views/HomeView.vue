@@ -1,6 +1,6 @@
 <template>
   <section style="height: 100vh;">
-    <h1 style="margin-bottom: 20px">Havo sifati bashorati</h1>
+    <h1 style="margin-bottom: 20px">{{ $route.meta.text }}</h1>
     <el-text>Stansiyani qidirish</el-text>
     <el-input
       v-model="search"

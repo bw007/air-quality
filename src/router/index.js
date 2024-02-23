@@ -10,7 +10,15 @@ const router = createRouter({
       name: 'layout',
       component: homeLayout,
       children: [
-        ...menu
+        ...menu,
+        {
+          path: '/:pathMatch(.*)*',
+          name: 'error',
+          meta: {
+            title: 'Sahifa topilmadi',
+          },
+          component: () => import("@/views/ErrorView.vue")
+        }
       ]
     }
   ]
