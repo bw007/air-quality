@@ -37,17 +37,13 @@
           {{ degree == 1 ? city.current?.temp_c.toFixed() : city.current?.temp_f.toFixed() }}
         </el-text>
         <div style="display: flex; align-items: center; margin-bottom: 15px;">
-          <el-popover placement="top-start" trigger="hover" content="Selsiy">
-            <template #reference>
-              <el-text size="large" :type="degree == 1 ? 'primary' : 'info'" style="cursor: pointer;" @click="degree = 1">&#x2103;</el-text>
-            </template>
-          </el-popover>
+          <el-tooltip effect="dark" content="Selsiy" placement="top-start">
+            <el-text size="large" :type="degree == 1 ? 'primary' : 'info'" style="cursor: pointer;" @click="degree = 1">&#x2103;</el-text>
+          </el-tooltip>
           <el-divider direction="vertical" />
-          <el-popover placement="top-start" trigger="hover" content="Farengeyt">
-            <template #reference>
-              <el-text size="large" :type="degree == 2 ? 'primary' : 'info'" style="cursor: pointer;" @click="degree = 2">&#8457;</el-text>
-            </template>
-          </el-popover>
+          <el-tooltip effect="dark" content="Farengeyt" placement="top-start">
+            <el-text size="large" :type="degree == 2 ? 'primary' : 'info'" style="cursor: pointer;" @click="degree = 2">&#8457;</el-text>
+          </el-tooltip>
         </div>
         <div style="display: flex; flex-direction: column; margin-top: 8px; margin-left: 10px;">
           <el-text size="small" style="align-self: auto;">Namlik: {{ city.current?.humidity }}%</el-text>
@@ -91,7 +87,7 @@ const handleSearch = async (val) => {
 
 onMounted(() => {
   if (!stations?.value.length) {
-    store.getWeather("Qarshi");
+    store.getWeather("Toshkent");
   } else {
     store.getWeather(stations?.value[0].station.geo.join())
   }
