@@ -1,3 +1,11 @@
+@forward '../../node_modules/element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': green,
+    ),
+  )
+);
+
 * {
   margin: 0;
   padding: 0;
