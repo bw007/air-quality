@@ -15,7 +15,7 @@ export const menu = [
     title: 'Shaharlar',
     icon: 'place',
     meta: {
-      text: "Shaharlardagi ko'rsatkichlar"
+      text: "Nuqtalar"
     },
     component: () => import("@/views/PlaceView.vue")
   },
