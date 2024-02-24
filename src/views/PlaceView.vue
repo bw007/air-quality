@@ -95,7 +95,7 @@ const { loading, stations, stations_count } = storeToRefs(store)
 
 let search = ref("");
 
-const handleSearch = async (val) => {
+const handleSearch = (val) => {
   if (!val) return
   store.getStation({route: "search", keyword: val.trim()});
 };

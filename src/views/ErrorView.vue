@@ -1,11 +1,7 @@
 <template>
-  <section>
+  <section style="height: 100%; display: flex; justify-content: center; align-items: center;">
+    404 
+    <el-divider direction="vertical" />
     {{ $route.meta.title }}
   </section>
 </template>
-
-<script setup></script>
-
-<style lang="">
-  
-</style>

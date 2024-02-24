@@ -34,7 +34,6 @@ export const weatherStore = defineStore("weatherStore", () => {
       }
     }
     load.value = false;
-    console.log(city.value.location);
   }
 
   return {

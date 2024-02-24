@@ -9,7 +9,6 @@ export const placeStore = defineStore("placeStore", () => {
   const tr = translateStore()
   const forecast = ref([])
 
-  const flags = ref({});
   const stations = ref([]);
   const stations_count = ref(0)
   const loading = ref(false);
@@ -42,7 +41,6 @@ export const placeStore = defineStore("placeStore", () => {
               station: {...item.station, name: await tr.getTranslate(item.station.name) }
             }
           }
-          
           return {
             ...item,
             forecast: { ...frc.data?.data.forecast },
@@ -60,8 +58,6 @@ export const placeStore = defineStore("placeStore", () => {
         name: item.station.name
       }
     })]
-
-    console.log(stations.value[0].station.geo.join());
     loading.value = false;
   };
   
@@ -70,7 +66,6 @@ export const placeStore = defineStore("placeStore", () => {
   }
 
   return {
-    flags,
     stations,
     stations_count,
     loading,

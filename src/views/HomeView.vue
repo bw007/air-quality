@@ -26,24 +26,6 @@
         />
       </div>
     </div>
-    
-    <el-dialog
-      v-if="!loading"
-      v-model="dialogVisible"
-      title="Tips"
-      width="500"
-      :before-close="handleClose"
-    >
-      <span>This is a message</span>
-      <template #footer>
-        <div class="dialog-footer">
-          <el-button @click="dialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="dialogVisible = false">
-            Confirm
-          </el-button>
-        </div>
-      </template>
-    </el-dialog>
   </section>
 </template>
 
@@ -65,6 +47,7 @@ import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { convertDate } from "@/stores/utils/func";
 import { placeStore } from "@/stores/data/place";
+
 const store = placeStore()
 
 const { loading, stations, forecast, stations_count } = storeToRefs(store)
@@ -76,16 +59,10 @@ const options = ref({
 })
 
 let search = ref("");
-let dialogVisible = ref(true)
-
-const handleClose = () => {
-  dialogVisible.value = false
-}
 
 const handleSearch = async (val) => {
   if (!val) return
   store.getStation({route: "search", keyword: val.trim()});
-  console.log(forecast.value);
 };
 
 onMounted(() => {
@@ -95,7 +72,3 @@ onMounted(() => {
 })
 
 </script>
-
-<style lang="">
-  
-</style>

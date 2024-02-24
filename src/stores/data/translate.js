@@ -15,10 +15,7 @@ export const translateStore = defineStore("translateStore", () => {
         target: "uz" 
       } 
     })
-
-    if (res.status == 200) {
-     return res.data.data.translations[0].translatedText
-    }
+    if (res.status == 200) return res.data.data.translations[0].translatedText
   }
 
   return {

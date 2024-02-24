@@ -5,8 +5,7 @@ export const menu = [
     title: 'Bosh sahifa',
     icon: 'pie-chart',
     meta: {
-      secure: false,
-      text: "Havo sifati bashorati"
+      text: "Prognozlar"
     },
     component: () => import("@/views/HomeView.vue")
   },
@@ -16,8 +15,7 @@ export const menu = [
     title: 'Shaharlar',
     icon: 'place',
     meta: {
-      secure: false,
-      text: "Havo sifati ko'rsatkichlari"
+      text: "Shaharlardagi ko'rsatkichlar"
     },
     component: () => import("@/views/PlaceView.vue")
   },
@@ -27,7 +25,6 @@ export const menu = [
     title: 'Ob-Havo',
     icon: 'Lightning',
     meta: {
-      secure: false,
       text: "Ob-havo ma'lumotlari"
     },
     component: () => import("@/views/WeatherView.vue")
@@ -38,7 +35,6 @@ export const menu = [
     title: 'Sozlamalar',
     icon: 'Setting',
     meta: {
-      secure: false,
       text: "Sozlamalar"
     },
     component: () => import("@/views/SettingView.vue")
