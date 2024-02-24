@@ -25,7 +25,7 @@ export const menu = [
     path: 'weather',
     name: 'weather',
     title: 'Ob-Havo',
-    icon: 'PartlyCloudy',
+    icon: 'Lightning',
     meta: {
       secure: false,
       text: "Ob-havo ma'lumotlari"

@@ -26,9 +26,10 @@
         />
       </div>
     </div>
+    
     <el-dialog
       v-if="!loading"
-      v-model="loading"
+      v-model="dialogVisible"
       title="Tips"
       width="500"
       :before-close="handleClose"
@@ -75,7 +76,11 @@ const options = ref({
 })
 
 let search = ref("");
+let dialogVisible = ref(true)
 
+const handleClose = () => {
+  dialogVisible.value = false
+}
 
 const handleSearch = async (val) => {
   if (!val) return
@@ -87,7 +92,6 @@ onMounted(() => {
   if (!stations?.value.length) {
     store.getStation({ route: "search", keyword: "Tashkent" });
   }
-  console.log(forecast);
 })
 
 </script>
