@@ -1,12 +1,14 @@
 export const urlData = {
   waqiUrl: "https://api.waqi.info",
-  waqiToken: "c9b946f29ef0b19f6eb4b91474cbdf90cc01da60",
-  apiKey: "AIzaSyCmgt070Vg76F1UxcGYdfoUbcYwLArlomA",
+
+  waqiToken: import.meta.env.VITE_WAQI_TOKEN,
+  apiKey: import.meta.env.VITE_API_KEY,
+
   mapsUrl: "https://maps.googleapis.com/maps/api/geocode/json",
   flagUrl: "https://cdn.airvisual.net/flags/india.jpg",
 
   translateUrl: "https://translation.googleapis.com/language/translate/v2",
 
-  weatherKey: "fedaa47da3msh44dab0c4e278f4ep1dcb31jsn51bde7d2cab0",
+  weatherKey: import.meta.env.VITE_W_KEY,
   weatherUrl: "https://weatherapi-com.p.rapidapi.com/current.json"
 }

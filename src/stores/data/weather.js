@@ -2,11 +2,11 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { apiStore } from "../utils/api";
 import { urlData } from "../utils/env";
-import { translateStore } from "./translate";
+// import { translateStore } from "./translate";
 
 export const weatherStore = defineStore("weatherStore", () => {
   const api = apiStore()
-  const tr = translateStore()
+  // const tr = translateStore()
   const city = ref({})
   const load = ref(false)
 
@@ -25,11 +25,12 @@ export const weatherStore = defineStore("weatherStore", () => {
       city.value = { 
         current: { 
           ...res.data.current, 
-          condition: { ...res.data.current.condition, text: await tr.getTranslate(res.data.current.condition.text) } 
+          // condition: { ...res.data.current.condition, text: await tr.getTranslate(res.data.current.condition.text) }, 
+          condition: { ...res.data.current.condition } 
         }, 
         location: { 
           ...res.data.location, 
-          country_uz: await tr.getTranslate(res.data.location.country), name_uz: await tr.getTranslate(res.data.location.name) 
+          // country_uz: await tr.getTranslate(res.data.location.country), name_uz: await tr.getTranslate(res.data.location.name) 
         } 
       }
     }

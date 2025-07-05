@@ -2,11 +2,11 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { apiStore } from "../utils/api";
 import { urlData } from "../utils/env";
-import { translateStore } from "./translate";
+// import { translateStore } from "./translate";
 
 export const placeStore = defineStore("placeStore", () => {
   const api = apiStore();
-  const tr = translateStore()
+  // const tr = translateStore()
   const forecast = ref([])
 
   const stations = ref([]);
@@ -24,8 +24,8 @@ export const placeStore = defineStore("placeStore", () => {
     if (res?.status == 200) {
       forecast.value = []
       stations.value = [
-        ...await Promise.all(res.data.data.map(async (item) => {
-
+        ...await Promise.all(res.data.data?.map(async (item) => {
+          
           let frc = await api.get({ 
             url: `${urlData.waqiUrl}/feed/geo:${item.station.geo.join(";")}/`, 
             params: { token: urlData.waqiToken }
@@ -38,14 +38,16 @@ export const placeStore = defineStore("placeStore", () => {
               forecast: { ...frc.data?.data.forecast },
               iaqi: { ...frc.data?.data.iaqi },
               country: cn.data?.plus_code?.compound_code?.split(", ").pop().toLowerCase(),
-              station: {...item.station, name: await tr.getTranslate(item.station.name) }
+              // station: {...item.station, name: await tr.getTranslate(item.station.name) },
+              station: {...item.station }
             }
           }
           return {
             ...item,
             forecast: { ...frc.data?.data.forecast },
             iaqi: { ...frc.data?.data.iaqi },
-            station: { ...item.station, name: await tr.getTranslate(item.station.name) }
+            // station: { ...item.station, name: await tr.getTranslate(item.station.name) },
+            station: { ...item.station }
           };
 
         })),
