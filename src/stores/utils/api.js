@@ -13,7 +13,17 @@ export const apiStore = defineStore("apiStore", () => {
     })
   }
 
+  const post = async (payload) => {
+    return await axios.post(`${payload.url}`, payload.data, {
+      headers: { ...payload.headers },
+      params: { ...payload.params } // optional: agar URL param kerak bo‘lsa
+    }).catch((err) => {
+      console.log("POST xatolik:", err.response?.data || err.message);
+    });
+  };
+
   return {
-    get
+    get,
+    post
   }
 })
